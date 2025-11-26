@@ -30,6 +30,8 @@ export function CardBombDemo() {
   // Game List State
   const [games, setGames] = useState<GameMeta[]>([]);
   const [isLoadingGames, setIsLoadingGames] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const GAMES_PER_PAGE = 6;
   
   // Play Game State
   const [currentGame, setCurrentGame] = useState<GameMeta | null>(null);
@@ -372,13 +374,18 @@ export function CardBombDemo() {
           ))}
         </div>
         
-        <div className={`px-2 py-1 text-[10px] font-bold tracking-wider uppercase ${
-          status === 'ready' 
-            ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/50' 
-            : 'bg-amber-900/30 text-amber-400 border border-amber-500/50'
+        <div className={`flex items-center gap-1.5 px-2 py-1 text-[10px] font-bold tracking-wider uppercase transition-all duration-300 ${
+          fhevmError
+            ? 'bg-red-900/30 text-red-400 border border-red-500/50'
+            : isReady
+              ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/50' 
+              : 'bg-amber-900/30 text-amber-400 border border-amber-500/50'
         }`}>
-          <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${status === 'ready' ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}`}></span>
-          {status === 'ready' ? 'ONLINE' : 'INIT'}
+          <span className={`inline-block w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+            fhevmError ? 'bg-red-400' : isReady ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'
+          }`}></span>
+          <span className="text-slate-500">FHEVM:</span>
+          {fhevmError ? 'ERROR' : isReady ? 'READY' : status === 'initializing' ? 'INIT...' : 'CONNECTING...'}
         </div>
       </div>
 
@@ -436,37 +443,121 @@ export function CardBombDemo() {
               </div>
             )}
             
-            {/* Games List - 2 Column Grid like Create Tab */}
-            {!isLoadingGames && games.length > 0 && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {games.map(game => (
-                  <div 
-                    key={game.gameId.toString()} 
-                    className="group relative bg-slate-900/60 border border-slate-800 p-4 hover:border-cyan-500/50 transition-all duration-200"
-                  >
-                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-800 group-hover:bg-cyan-500 transition-colors"></div>
-                    
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <span className="text-cyan-400 font-mono text-lg">#{game.gameId.toString().padStart(2, '0')}</span>
-                        {game.active && <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>}
-                        <span className="text-[10px] text-slate-500 font-mono">{game.creator.slice(0, 6)}...{game.creator.slice(-4)}</span>
+            {/* Games List - 2 Column Grid with Pagination */}
+            {!isLoadingGames && games.length > 0 && (() => {
+              const totalPages = Math.ceil(games.length / GAMES_PER_PAGE);
+              const startIndex = (currentPage - 1) * GAMES_PER_PAGE;
+              const paginatedGames = games.slice(startIndex, startIndex + GAMES_PER_PAGE);
+              
+              return (
+                <>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {paginatedGames.map(game => (
+                      <div 
+                        key={game.gameId.toString()} 
+                        className="group relative bg-slate-900/60 border border-slate-800 p-4 hover:border-cyan-500/50 transition-all duration-200"
+                      >
+                        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-800 group-hover:bg-cyan-500 transition-colors"></div>
+                        
+                        {/* Header Row */}
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-cyan-400 font-mono text-xl font-bold">#{game.gameId.toString().padStart(2, '0')}</span>
+                            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase ${
+                              game.active 
+                                ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-500/50' 
+                                : 'bg-slate-800 text-slate-500 border border-slate-700'
+                            }`}>
+                              {game.active ? 'ACTIVE' : 'ENDED'}
+                            </span>
+                          </div>
+                          <button 
+                            onClick={() => handleSelectGame(game.gameId.toString())} 
+                            className="px-4 py-2 text-xs bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all"
+                          >
+                            {game.active ? 'PLAY' : 'VIEW'}
+                          </button>
+                        </div>
+                        
+                        {/* Info Grid */}
+                        <div className="grid grid-cols-3 gap-2 mb-3">
+                          <div className="bg-slate-800/50 p-2 text-center">
+                            <p className="text-[9px] text-slate-500 uppercase">Reward/Cell</p>
+                            <p className="text-sm font-mono text-purple-400 font-bold">{game.rewardPerSafeCell.toString()}</p>
+                          </div>
+                          <div className="bg-slate-800/50 p-2 text-center">
+                            <p className="text-[9px] text-slate-500 uppercase">Max Win</p>
+                            <p className="text-sm font-mono text-emerald-400 font-bold">{(Number(game.rewardPerSafeCell) * 8).toString()}</p>
+                          </div>
+                          <div className="bg-slate-800/50 p-2 text-center">
+                            <p className="text-[9px] text-slate-500 uppercase">Safe Cells</p>
+                            <p className="text-sm font-mono text-cyan-400 font-bold">8/9</p>
+                          </div>
+                        </div>
+                        
+                        {/* Creator */}
+                        <div className="flex items-center justify-between text-[10px] text-slate-500">
+                          <span>Creator:</span>
+                          <span className="font-mono">{game.creator.slice(0, 6)}...{game.creator.slice(-4)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Pagination Controls - Only show if more than 6 games */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 mt-4">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className={`px-3 py-1.5 text-xs border transition-all ${
+                          currentPage === 1
+                            ? 'border-slate-800 text-slate-600 cursor-not-allowed'
+                            : 'border-slate-700 text-slate-400 hover:border-cyan-500 hover:text-cyan-400'
+                        }`}
+                      >
+                        ← PREV
+                      </button>
+                      
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 text-xs font-mono transition-all ${
+                              currentPage === page
+                                ? 'bg-cyan-600 text-black border border-cyan-400'
+                                : 'border border-slate-700 text-slate-400 hover:border-cyan-500 hover:text-cyan-400'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
                       </div>
                       
-                      <div className="flex items-center gap-4">
-                        <span className="text-xl font-bold text-purple-400 font-mono">{game.rewardPerSafeCell.toString()}<span className="text-xs text-slate-600 ml-1">pts</span></span>
-                        <button 
-                          onClick={() => handleSelectGame(game.gameId.toString())} 
-                          className="px-4 py-2 text-xs bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all"
-                        >
-                          PLAY
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className={`px-3 py-1.5 text-xs border transition-all ${
+                          currentPage === totalPages
+                            ? 'border-slate-800 text-slate-600 cursor-not-allowed'
+                            : 'border-slate-700 text-slate-400 hover:border-cyan-500 hover:text-cyan-400'
+                        }`}
+                      >
+                        NEXT →
+                      </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  )}
+                  
+                  {/* Page Info */}
+                  {totalPages > 1 && (
+                    <p className="text-center text-[10px] text-slate-500 mt-2">
+                      Showing {startIndex + 1}-{Math.min(startIndex + GAMES_PER_PAGE, games.length)} of {games.length} missions
+                    </p>
+                  )}
+                </>
+              );
+            })()}
           </div>
         )}
 
