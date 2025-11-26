@@ -649,21 +649,32 @@ export function CardBombDemo() {
                 </div>
 
                 {/* Game Over Banner */}
-                {isGameOver && (
-                  <div className={`p-6 rounded-2xl text-center ${
-                    safeCount >= 8 
-                      ? 'bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200' 
-                      : 'bg-gradient-to-br from-red-50 to-red-100 border border-red-200'
-                  }`}>
-                    <div className="text-5xl mb-3">{safeCount >= 8 ? '🎉' : '💥'}</div>
-                    <p className={`font-bold text-2xl ${safeCount >= 8 ? 'text-emerald-700' : 'text-red-700'}`}>
-                      {safeCount >= 8 ? 'YOU WIN!' : 'GAME OVER'}
-                    </p>
-                    <p className={`text-sm mt-1 ${safeCount >= 8 ? 'text-emerald-600' : 'text-red-600'}`}>
-                      {safeCount} safe cells found
-                    </p>
-                  </div>
-                )}
+                {isGameOver && (() => {
+                  const hitBomb = revealedBomb !== null && guessedCells[revealedBomb];
+                  const clearedAll = safeCount >= 8;
+                  
+                  return (
+                    <div className={`p-6 rounded-2xl text-center ${
+                      hitBomb ? 'bg-gradient-to-br from-red-50 to-red-100 border border-red-200' :
+                      clearedAll ? 'bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200' :
+                      'bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200'
+                    }`}>
+                      <div className="text-5xl mb-3">
+                        {hitBomb ? '💥' : clearedAll ? '🎉' : '🛡️'}
+                      </div>
+                      <p className={`font-bold text-2xl ${
+                        hitBomb ? 'text-red-700' : clearedAll ? 'text-emerald-700' : 'text-amber-700'
+                      }`}>
+                        {hitBomb ? 'GAME OVER' : clearedAll ? 'YOU WIN!' : 'SURVIVED'}
+                      </p>
+                      <p className={`text-sm mt-1 ${
+                        hitBomb ? 'text-red-600' : clearedAll ? 'text-emerald-600' : 'text-amber-600'
+                      }`}>
+                        {safeCount} safe cells found
+                      </p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Right Panel - Game Grid */}

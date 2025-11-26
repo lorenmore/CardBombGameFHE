@@ -355,7 +355,7 @@ export function CardBombDemo() {
         <div className="flex gap-0.5 bg-slate-900/50 p-0.5 border border-slate-800">
           {[
             { id: 'list', label: 'MISSIONS', icon: '▤' },
-            { id: 'create', label: 'NEW', icon: '✚' },
+            { id: 'create', label: 'CREATE GAME', icon: '✚' },
             { id: 'play', label: 'PLAY', icon: '▶' }
           ].map(tab => (
             <button 
@@ -593,7 +593,7 @@ export function CardBombDemo() {
                         : 'bg-cyan-900/20 text-cyan-400 border-cyan-500 hover:bg-cyan-500 hover:text-black'
                     }`}
                   >
-                    {isProcessing ? 'PROCESSING...' : 'EXECUTE'}
+                    {isProcessing ? 'PROCESSING...' : 'CREATE GAME'}
                   </button>
                   <p className="text-[10px] text-slate-600 text-center mt-2">
                     {bombPosition !== null ? `BOMB: SECTOR ${bombPosition + 1}` : 'SELECT BOMB LOCATION'}
@@ -690,15 +690,27 @@ export function CardBombDemo() {
                 )}
 
                 {/* Game Over */}
-                {isGameOver && (
-                  <div className={`p-3 border text-center ${
-                    safeCount >= 8 ? 'border-emerald-500 bg-emerald-900/20' : 'border-red-500 bg-red-900/20'
-                  }`}>
-                    <p className={`font-bold text-lg uppercase ${safeCount >= 8 ? 'text-emerald-400' : 'text-red-500'}`}>
-                      {safeCount >= 8 ? 'SUCCESS' : 'FAILED'}
-                    </p>
-                  </div>
-                )}
+                {isGameOver && (() => {
+                  // Check if player hit the bomb (revealedBomb is set AND player guessed that cell)
+                  const hitBomb = revealedBomb !== null && guessedCells[revealedBomb];
+                  const clearedAll = safeCount >= 8;
+                  
+                  return (
+                    <div className={`p-3 border text-center ${
+                      hitBomb ? 'border-red-500 bg-red-900/20' : 
+                      clearedAll ? 'border-emerald-500 bg-emerald-900/20' : 
+                      'border-amber-500 bg-amber-900/20'
+                    }`}>
+                      <p className={`font-bold text-lg uppercase ${
+                        hitBomb ? 'text-red-500' : 
+                        clearedAll ? 'text-emerald-400' : 
+                        'text-amber-400'
+                      }`}>
+                        {hitBomb ? 'FAILED' : clearedAll ? 'SUCCESS' : 'SURVIVED'}
+                      </p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Center & Right - Game Grid (spans 2 cols) */}
