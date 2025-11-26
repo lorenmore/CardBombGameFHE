@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --shadow-center: 0 0 12px -2px rgb(0 0 0 / 0.05);
+  --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  /* Custom Gamer Colors */
+  --color-neon-blue: #00f3ff;
+  --color-neon-pink: #ff00ff;
+  --color-neon-green: #00ff9d;
+  --color-dark-bg: #050505;
+  --color-dark-surface: #0a0a0a;
+  
+  --shadow-neon-blue: 0 0 5px #00f3ff, 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+  --shadow-neon-pink: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  --shadow-neon-green: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d;
+}
+
+@plugin "daisyui" {
+  themes:
+    dark --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+
+  --color-primary: #00f3ff; /* Neon Blue */
+  --color-primary-content: #000000;
+  --color-secondary: #ff00ff; /* Neon Pink */
+  --color-secondary-content: #000000;
+  --color-accent: #00ff9d; /* Neon Green */
+  --color-accent-content: #000000;
+  --color-neutral: #1a1a1a;
+  --color-neutral-content: #ffffff;
+  --color-base-100: #050505; /* Almost Black */
+  --color-base-200: #0a0a0a; /* Slightly Lighter */
+  --color-base-300: #141414;
+  --color-base-content: #e0e0e0;
+  --color-info: #00f3ff;
+  --color-success: #00ff9d;
+  --color-warning: #ffcf72;
+  --color-error: #ff2a2a;
+
+  --radius-field: 0.2rem;
+  --radius-box: 0.2rem;
+  
+  --tt-tailw: 6px;
+  --tt-bg: var(--color-primary);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-800, currentColor);
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: #050505;
+    background-image: 
+      linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    font-family: "Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+      Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .box-glow-primary {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3), inset 0 0 20px rgba(0, 243, 255, 0.1);
+  }
+  
+  .box-glow-secondary {
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3), inset 0 0 20px rgba(255, 0, 255, 0.1);
+  }
+
+  .glass-panel {
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cyber-border {
+    position: relative;
+    clip-path: polygon(
+      0 10px, 
+      10px 0, 
+      100% 0, 
+      100% calc(100% - 10px), 
+      calc(100% - 10px) 100%, 
+      0 100%
+    );
+  }
+}
+
+:root,
+[data-theme] {
+  background: var(--color-base-100);
+}
+
+.btn {
+  @apply uppercase tracking-wider font-bold border-none rounded-sm;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 92% 100%, 0 100%);
+}
+
+.btn-primary {
+  @apply shadow-[0_0_15px_rgba(0,243,255,0.4)];
+}
+
+.btn-secondary {
+  @apply shadow-[0_0_15px_rgba(255,0,255,0.4)];
+}
+
+.link {
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  opacity: 80%;
+  text-shadow: 0 0 8px currentColor;
+}

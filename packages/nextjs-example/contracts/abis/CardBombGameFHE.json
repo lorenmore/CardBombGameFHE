@@ -1,0 +1,409 @@
+﻿[
+    {
+        "inputs":  [
+
+                   ],
+        "stateMutability":  "nonpayable",
+        "type":  "constructor"
+    },
+    {
+        "inputs":  [
+
+                   ],
+        "name":  "ZamaProtocolUnsupported",
+        "type":  "error"
+    },
+    {
+        "anonymous":  false,
+        "inputs":  [
+                       {
+                           "indexed":  true,
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       },
+                       {
+                           "indexed":  true,
+                           "internalType":  "address",
+                           "name":  "creator",
+                           "type":  "address"
+                       },
+                       {
+                           "indexed":  false,
+                           "internalType":  "uint64",
+                           "name":  "rewardPerSafeCell",
+                           "type":  "uint64"
+                       }
+                   ],
+        "name":  "GameCreated",
+        "type":  "event"
+    },
+    {
+        "anonymous":  false,
+        "inputs":  [
+                       {
+                           "indexed":  true,
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       },
+                       {
+                           "indexed":  true,
+                           "internalType":  "address",
+                           "name":  "creator",
+                           "type":  "address"
+                       }
+                   ],
+        "name":  "GameMadePublic",
+        "type":  "event"
+    },
+    {
+        "anonymous":  false,
+        "inputs":  [
+                       {
+                           "indexed":  true,
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       },
+                       {
+                           "indexed":  true,
+                           "internalType":  "address",
+                           "name":  "player",
+                           "type":  "address"
+                       },
+                       {
+                           "indexed":  false,
+                           "internalType":  "uint8",
+                           "name":  "cellIndex",
+                           "type":  "uint8"
+                       }
+                   ],
+        "name":  "GuessSubmitted",
+        "type":  "event"
+    },
+    {
+        "inputs":  [
+
+                   ],
+        "name":  "confidentialProtocolId",
+        "outputs":  [
+                        {
+                            "internalType":  "uint256",
+                            "name":  "",
+                            "type":  "uint256"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint64",
+                           "name":  "rewardPerSafeCell",
+                           "type":  "uint64"
+                       },
+                       {
+                           "internalType":  "uint8",
+                           "name":  "bombPositionPlaintext",
+                           "type":  "uint8"
+                       },
+                       {
+                           "internalType":  "externalEuint8",
+                           "name":  "bombHandle",
+                           "type":  "bytes32"
+                       },
+                       {
+                           "internalType":  "bytes",
+                           "name":  "proof",
+                           "type":  "bytes"
+                       }
+                   ],
+        "name":  "createGame",
+        "outputs":  [
+                        {
+                            "internalType":  "uint256",
+                            "name":  "gameId",
+                            "type":  "uint256"
+                        }
+                    ],
+        "stateMutability":  "nonpayable",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getBombHandle",
+        "outputs":  [
+                        {
+                            "internalType":  "euint8",
+                            "name":  "",
+                            "type":  "bytes32"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getBombPlaintext",
+        "outputs":  [
+                        {
+                            "internalType":  "uint8",
+                            "name":  "",
+                            "type":  "uint8"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "address",
+                           "name":  "player",
+                           "type":  "address"
+                       }
+                   ],
+        "name":  "getEncryptedScore",
+        "outputs":  [
+                        {
+                            "internalType":  "euint64",
+                            "name":  "",
+                            "type":  "bytes32"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getGameCreator",
+        "outputs":  [
+                        {
+                            "internalType":  "address",
+                            "name":  "",
+                            "type":  "address"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getGameMeta",
+        "outputs":  [
+                        {
+                            "internalType":  "address",
+                            "name":  "creator",
+                            "type":  "address"
+                        },
+                        {
+                            "internalType":  "uint64",
+                            "name":  "rewardPerSafeCell",
+                            "type":  "uint64"
+                        },
+                        {
+                            "internalType":  "bool",
+                            "name":  "active",
+                            "type":  "bool"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getLastResult",
+        "outputs":  [
+                        {
+                            "internalType":  "ebool",
+                            "name":  "isBombResult",
+                            "type":  "bytes32"
+                        },
+                        {
+                            "internalType":  "bool",
+                            "name":  "exists",
+                            "type":  "bool"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "getLastResultPlaintext",
+        "outputs":  [
+                        {
+                            "internalType":  "bool",
+                            "name":  "isBomb",
+                            "type":  "bool"
+                        },
+                        {
+                            "internalType":  "bool",
+                            "name":  "exists",
+                            "type":  "bool"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       },
+                       {
+                           "internalType":  "address",
+                           "name":  "player",
+                           "type":  "address"
+                       }
+                   ],
+        "name":  "getPlayerState",
+        "outputs":  [
+                        {
+                            "internalType":  "uint8",
+                            "name":  "guessCount",
+                            "type":  "uint8"
+                        },
+                        {
+                            "internalType":  "bool",
+                            "name":  "hasLastResult",
+                            "type":  "bool"
+                        },
+                        {
+                            "internalType":  "bool[9]",
+                            "name":  "guessedCells",
+                            "type":  "bool[9]"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       },
+                       {
+                           "internalType":  "uint8",
+                           "name":  "cellIndex",
+                           "type":  "uint8"
+                       }
+                   ],
+        "name":  "guessCell",
+        "outputs":  [
+
+                    ],
+        "stateMutability":  "nonpayable",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "address",
+                           "name":  "player",
+                           "type":  "address"
+                       }
+                   ],
+        "name":  "hasInitializedScore",
+        "outputs":  [
+                        {
+                            "internalType":  "bool",
+                            "name":  "",
+                            "type":  "bool"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "isGameActive",
+        "outputs":  [
+                        {
+                            "internalType":  "bool",
+                            "name":  "",
+                            "type":  "bool"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+                       {
+                           "internalType":  "uint256",
+                           "name":  "gameId",
+                           "type":  "uint256"
+                       }
+                   ],
+        "name":  "makeGamePublic",
+        "outputs":  [
+
+                    ],
+        "stateMutability":  "nonpayable",
+        "type":  "function"
+    },
+    {
+        "inputs":  [
+
+                   ],
+        "name":  "nextGameId",
+        "outputs":  [
+                        {
+                            "internalType":  "uint256",
+                            "name":  "",
+                            "type":  "uint256"
+                        }
+                    ],
+        "stateMutability":  "view",
+        "type":  "function"
+    }
+]
