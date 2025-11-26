@@ -155,6 +155,7 @@ export function CardBombDemo() {
         }
         
         setMessage("Game terminated. Reveal sequence available.");
+        handleLoadGames(); // Refresh game list
         setPendingOperation(null);
         setIsProcessing(false);
       }
@@ -325,7 +326,7 @@ export function CardBombDemo() {
       <div className="glass-panel p-10 max-w-md mx-auto text-center cyber-border">
         <div className="text-6xl mb-6 animate-pulse">💣</div>
         <h2 className="text-4xl font-bold text-white mb-3 tracking-widest text-glow">
-          CARD<span className="text-cyan-400">BOMB</span>
+          CARD BOMB <span className="text-cyan-400">GAME</span>
         </h2>
         <p className="text-slate-400 mb-8 uppercase tracking-widest text-xs">Secure Connection Required</p>
         <div className="flex justify-center">
@@ -347,7 +348,7 @@ export function CardBombDemo() {
         <div className="flex items-center gap-2">
           <span className="text-xl text-cyan-400 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]">◈</span>
           <h2 className="text-xl font-bold text-white tracking-widest text-glow">
-            CARD<span className="text-cyan-400">BOMB</span>
+            CARD BOMB <span className="text-cyan-400">GAME</span>
           </h2>
         </div>
         
@@ -360,7 +361,10 @@ export function CardBombDemo() {
           ].map(tab => (
             <button 
               key={tab.id} 
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => {
+                setActiveTab(tab.id as any);
+                if (tab.id === 'list') handleLoadGames();
+              }}
               className={`px-3 py-1.5 font-bold text-xs tracking-wider transition-all duration-200 ${
                 activeTab === tab.id 
                   ? 'bg-cyan-900 text-cyan-400 border-b border-cyan-400' 

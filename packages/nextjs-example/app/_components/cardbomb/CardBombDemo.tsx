@@ -153,6 +153,7 @@ export function CardBombDemo() {
         }
         
         setMessage("Game ended! Click 'Reveal Bomb' to see position.");
+        handleLoadGames(); // Refresh game list
         setPendingOperation(null);
         setIsProcessing(false);
       }
@@ -322,7 +323,7 @@ export function CardBombDemo() {
       <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl p-10 max-w-md mx-auto text-center border border-slate-100">
         <div className="text-6xl mb-6">💣</div>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent mb-3">
-          Card Bomb
+          Card Bomb Game
         </h2>
         <p className="text-slate-500 mb-8">Connect your wallet to start playing</p>
         <RainbowKitCustomConnectButton />
@@ -337,7 +338,7 @@ export function CardBombDemo() {
         <div className="flex items-center gap-3">
           <span className="text-4xl">💣</span>
           <h2 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent">
-            Card Bomb
+            Card Bomb Game
           </h2>
         </div>
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
@@ -375,7 +376,10 @@ export function CardBombDemo() {
         ].map(tab => (
           <button 
             key={tab.id} 
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() => {
+              setActiveTab(tab.id as any);
+              if (tab.id === 'list') handleLoadGames();
+            }}
             className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 ${
               activeTab === tab.id 
                 ? 'bg-white text-slate-900 shadow-md' 
