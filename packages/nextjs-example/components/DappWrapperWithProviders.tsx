@@ -43,10 +43,8 @@ export const DappWrapperWithProviders = ({ children }: { children: React.ReactNo
             <main className="relative flex flex-col flex-1">
               <FHEVMErrorBoundary>
                 <ClientFHEVMProvider config={{
-                  rpcUrl: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY 
-                    ? `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
-                    : `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
-                  chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID) || 11155111,
+                  rpcUrl: "https://ethereum-sepolia-rpc.publicnode.com",
+                  chainId: 11155111,
                   mockChains: {
                     31337: "http://localhost:8545"
                   }
