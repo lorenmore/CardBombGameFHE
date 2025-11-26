@@ -10,12 +10,11 @@ export function CardBombDemo() {
   const { isConnected, address } = useAccount();
   
   const {
-    status, isReady, chainId, fhevmError,
-    txHash, isWritePending, isWaitingForTx, isTxSuccess, writeError,
-    nextGameId, refetchNextGameId, loadGames, createGame, guessCell,
+    status, isReady, fhevmError,
+    txHash, isTxSuccess, writeError,
+    refetchNextGameId, loadGames, createGame, guessCell,
     makeGamePublic, getGameMeta, getPlayerState,
-    fetchDecryptHandles, performDecrypt, decryptPlayerState,
-    publicDecryptBomb, canDecrypt, isDecrypting, decryptResults, decryptHandles,
+    publicDecryptBomb,
     getLastResultPlaintext, getBombPlaintext,
   } = useCardBombGame();
 
@@ -220,7 +219,7 @@ export function CardBombDemo() {
     try {
       bombPos = await getBombPlaintext(BigInt(gameId));
       console.log("=== DEBUG: Game", gameId, "has bomb at position:", bombPos, "===");
-    } catch (e) {
+    } catch {
       console.log("Could not get bomb position");
     }
     
