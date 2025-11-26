@@ -19,7 +19,7 @@ export const Header = () => {
         <div className="flex items-center gap-2">
           <span className="text-xl">💣</span>
           <span className="font-bold tracking-widest text-white text-sm hidden sm:block">
-            ZAMA <span className="text-cyan-500">PROTOCOL</span>
+            CARD BOMB <span className="text-cyan-500">FHE</span>
           </span>
         </div>
       </div>
