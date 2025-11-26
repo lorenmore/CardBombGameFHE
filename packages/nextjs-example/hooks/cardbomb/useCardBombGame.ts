@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-import { useFHEVM, useFHEVMSignature, useFHEDecrypt, useInMemoryStorage, logger } from "@fhevm/sdk/react";
+import { useFHEVM, useFHEDecrypt, useInMemoryStorage, logger } from "@fhevm/sdk/react";
 import { ethers } from "ethers";
 import { getContractConfig } from "~~/contracts";
 
@@ -40,7 +40,7 @@ export function useCardBombGame() {
   }), [chainId]);
 
   const { instance, isInitialized: isReady, status, error: fhevmError } = useFHEVM(fhevmConfig);
-  const fhevmDecryptionSignatureStorage = useFHEVMSignature();
+  const { storage: fhevmDecryptionSignatureStorage } = useInMemoryStorage();
 
   const ethersSigner = useMemo(() => {
     if (!isConnected || !address) return undefined;
@@ -91,7 +91,7 @@ export function useCardBombGame() {
   const { decrypt: performDecrypt, results: decryptResults, canDecrypt, isDecrypting } = useFHEDecrypt({
     instance,
     ethersSigner,
-    fhevmDecryptionSignatureStorage: fhevmDecryptionSignatureStorage.storage,
+    fhevmDecryptionSignatureStorage,
     requests
   });
 
@@ -282,7 +282,7 @@ export function useCardBombGame() {
     const results = await instance.publicDecrypt([handle]);
     console.log("publicDecrypt results:", results);
 
-    const value = results.clearValues?.[handle] ?? results[handle] ?? results[0];
+    const value = (results as any).clearValues?.[handle] ?? (results as any)[handle] ?? (results as any)[0];
     console.log("Bomb value:", value);
     
     return value !== undefined ? Number(value) : null;
