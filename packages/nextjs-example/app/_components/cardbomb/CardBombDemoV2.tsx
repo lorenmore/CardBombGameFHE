@@ -385,7 +385,7 @@ export function CardBombDemo() {
             fhevmError ? 'bg-red-400' : isReady ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'
           }`}></span>
           <span className="text-slate-500">FHEVM:</span>
-          {fhevmError ? 'ERROR' : isReady ? 'READY' : status === 'initializing' ? 'INIT...' : 'CONNECTING...'}
+          {fhevmError ? 'ERROR' : isReady ? 'READY' : status === 'loading' ? 'LOADING...' : 'IDLE'}
         </div>
       </div>
 
