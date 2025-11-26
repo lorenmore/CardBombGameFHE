@@ -5,8 +5,8 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/helper/getMetadata";
 
 export const metadata = getMetadata({
-  title: "Next.js Example",
-  description: "Next.js example application for Universal FHEVM SDK",
+  title: "Card Bomb Game FHE",
+  description: "A blockchain game powered by Zama Fully Homomorphic Encryption (FHE)",
 });
 
 const DappWrapper = ({ children }: { children: React.ReactNode }) => {
