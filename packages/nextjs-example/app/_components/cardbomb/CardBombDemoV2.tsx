@@ -43,10 +43,6 @@ export function CardBombDemo() {
   const [pendingOperation, setPendingOperation] = useState<'create' | 'guess' | 'makePublic' | null>(null);
   const [lastTxHash, setLastTxHash] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isReady) handleLoadGames();
-  }, [isReady]);
-
   // Track when new tx hash is available
   useEffect(() => {
     if (txHash && txHash !== lastTxHash) {
@@ -185,6 +181,13 @@ export function CardBombDemo() {
       setIsLoadingGames(false);
     }
   }, [isReady, loadGames]);
+
+  // Auto-load games on mount and when ready/connected
+  useEffect(() => {
+    if (isReady && isConnected) {
+      handleLoadGames();
+    }
+  }, [isReady, isConnected, handleLoadGames]);
 
   const handleCreateGame = async () => {
     if (bombPosition === null) {
