@@ -30,13 +30,12 @@ export function useCardBombGame() {
 
   const cardBombConfig = getContractConfig('CardBombGameFHE');
 
+  // Public RPC - no API key required
   const fhevmConfig = useMemo(() => ({
     rpcUrl: chainId === 31337 
       ? "http://localhost:8545" 
-      : process.env.NEXT_PUBLIC_ALCHEMY_API_KEY 
-        ? `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}` 
-        : `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
-    chainId: chainId || Number(process.env.NEXT_PUBLIC_CHAIN_ID) || 11155111,
+      : "https://ethereum-sepolia-rpc.publicnode.com",
+    chainId: chainId || 11155111,
     mockChains: { 31337: "http://localhost:8545" }
   }), [chainId]);
 
