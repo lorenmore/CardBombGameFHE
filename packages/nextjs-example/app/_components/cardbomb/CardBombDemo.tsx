@@ -522,7 +522,7 @@ export function CardBombDemo() {
                 <div className="flex justify-center">
                   <CardGrid 
                     selectedIndices={bombPosition !== null ? [bombPosition] : []} 
-                    onCellClick={(idx) => setBombPosition(idx)} 
+                    onCellClick={(idx) => setBombPosition(prev => prev === idx ? prev : idx)} 
                     disabled={isProcessing}
                     title="Click a cell to hide the bomb"
                   />
@@ -693,7 +693,7 @@ export function CardBombDemo() {
                 </p>
                 <CardGrid 
                   selectedIndices={selectedCell !== null && !guessedCells[selectedCell] ? [selectedCell] : []}
-                  onCellClick={(idx) => !isGameOver && !guessedCells[idx] && setSelectedCell(idx)}
+                  onCellClick={(idx) => !isGameOver && !guessedCells[idx] && setSelectedCell(prev => prev === idx ? prev : idx)}
                   disabled={!currentGame.active || isGameOver}
                   guessedCells={guessedCells}
                   revealedBombs={revealedBomb !== null ? [revealedBomb] : undefined}

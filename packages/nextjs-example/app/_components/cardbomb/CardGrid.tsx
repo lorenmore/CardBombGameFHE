@@ -28,13 +28,9 @@ export function CardGrid({
     if (disabled) return;
     if (guessedCells?.[index]) return; // Can't click already guessed cells
     
-    if (selectedIndices.includes(index)) {
-      if (!isGuessMode) {
-        onCellClick(index);
-      }
-    } else if (selectedIndices.length < maxSelections) {
-      onCellClick(index);
-    }
+    // Always allow clicking any cell - parent will handle the logic
+    // This allows: selecting new cell, changing selection, or deselecting
+    onCellClick(index);
   };
 
   return (
