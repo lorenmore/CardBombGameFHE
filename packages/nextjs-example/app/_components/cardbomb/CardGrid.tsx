@@ -40,17 +40,17 @@ export function CardGrid({
   return (
     <div className="flex flex-col items-center">
       {title && (
-        <p className="text-[10px] font-bold text-cyan-500/70 tracking-[0.15em] uppercase mb-3">
+        <p className="text-[10px] font-bold text-primary/70 tracking-[0.15em] uppercase mb-3">
           {title}
         </p>
       )}
       
       <div className="relative p-3">
         {/* Cyber border corners */}
-        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-500/50"></div>
-        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-500/50"></div>
-        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-500/50"></div>
-        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-500/50"></div>
+        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50"></div>
+        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50"></div>
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/50"></div>
+        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/50"></div>
         
         <div className="grid grid-cols-3 gap-2">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
