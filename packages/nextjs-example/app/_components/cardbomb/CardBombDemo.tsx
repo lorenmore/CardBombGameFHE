@@ -323,33 +323,33 @@ export function CardBombDemo() {
 
   if (!isConnected) {
     return (
-      <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl p-10 max-w-md mx-auto text-center border border-slate-100">
+      <div className="bg-base-100 rounded-3xl shadow-2xl p-10 max-w-md mx-auto text-center border border-base-200 ring-1 ring-black/5">
         <div className="text-6xl mb-6">💣</div>
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent mb-3">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-3">
           Card Bomb Game
         </h2>
-        <p className="text-slate-500 mb-8">Connect your wallet to start playing</p>
+        <p className="text-base-content/60 mb-8">Connect your wallet to start playing</p>
         <RainbowKitCustomConnectButton />
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl p-8 max-w-4xl mx-auto border border-slate-100">
+    <div className="bg-base-100 rounded-3xl shadow-2xl p-8 max-w-4xl mx-auto border border-base-200 ring-1 ring-black/5">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
           <span className="text-4xl">💣</span>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Card Bomb Game
           </h2>
         </div>
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
           status === 'ready' 
-            ? 'bg-emerald-100 text-emerald-700' 
-            : 'bg-amber-100 text-amber-700'
+            ? 'bg-success/20 text-success' 
+            : 'bg-warning/20 text-warning'
         }`}>
-          <span className={`w-2 h-2 rounded-full ${status === 'ready' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`}></span>
+          <span className={`w-2 h-2 rounded-full ${status === 'ready' ? 'bg-success' : 'bg-warning animate-pulse'}`}></span>
           {status === 'ready' ? 'Ready' : 'Loading'}
         </div>
       </div>
@@ -358,10 +358,10 @@ export function CardBombDemo() {
       {message && (
         <div className={`mb-6 p-4 rounded-2xl flex items-center gap-3 ${
           message.includes('Failed') || message.includes('Error') || message.includes('BOOM') 
-            ? 'bg-red-50 text-red-700 border border-red-200' 
+            ? 'bg-error/10 text-error border border-error/20' 
             : message.includes('WIN') || message.includes('SAFE') 
-              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
-              : 'bg-violet-50 text-violet-700 border border-violet-200'
+              ? 'bg-success/10 text-success border border-success/20' 
+              : 'bg-primary/10 text-primary border border-primary/20'
         }`}>
           <span className="text-xl">
             {message.includes('BOOM') ? '💥' : message.includes('WIN') ? '🎉' : message.includes('SAFE') ? '✅' : 'ℹ️'}
@@ -371,7 +371,7 @@ export function CardBombDemo() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-8 p-1.5 bg-slate-100 rounded-2xl w-fit">
+      <div className="flex gap-2 mb-8 p-1.5 bg-base-200 rounded-2xl w-fit">
         {[
           { id: 'list', label: 'Games', icon: '🎮' },
           { id: 'create', label: 'Create', icon: '✨' },
@@ -385,8 +385,8 @@ export function CardBombDemo() {
             }}
             className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 ${
               activeTab === tab.id 
-                ? 'bg-white text-slate-900 shadow-md' 
-                : 'text-slate-500 hover:text-slate-700'
+                ? 'bg-base-100 text-base-content shadow-md' 
+                : 'text-base-content/50 hover:text-base-content/70'
             }`}
           >
             <span>{tab.icon}</span>
@@ -400,11 +400,11 @@ export function CardBombDemo() {
         {activeTab === 'list' && (
           <div>
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-slate-800">Available Games</h3>
+              <h3 className="text-xl font-bold text-base-content">Available Games</h3>
               <button 
                 onClick={handleLoadGames} 
                 disabled={isLoadingGames} 
-                className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
+                className="px-4 py-2 bg-base-200 text-base-content/70 rounded-xl hover:bg-base-300 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
               >
                 <span className={isLoadingGames ? 'animate-spin' : ''}>🔄</span>
                 {isLoadingGames ? 'Loading...' : 'Refresh'}
@@ -415,16 +415,16 @@ export function CardBombDemo() {
             {isLoadingGames && (
               <div className="space-y-4">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="bg-slate-50 rounded-2xl p-5 animate-pulse border border-slate-100">
+                  <div key={i} className="bg-base-200/50 rounded-2xl p-5 animate-pulse border border-base-200">
                     <div className="flex justify-between items-center">
                       <div className="space-y-3">
-                        <div className="h-5 w-28 bg-slate-200 rounded-lg"></div>
-                        <div className="h-4 w-36 bg-slate-200 rounded-lg"></div>
-                        <div className="h-4 w-32 bg-slate-200 rounded-lg"></div>
+                        <div className="h-5 w-28 bg-base-300 rounded-lg"></div>
+                        <div className="h-4 w-36 bg-base-300 rounded-lg"></div>
+                        <div className="h-4 w-32 bg-base-300 rounded-lg"></div>
                       </div>
                       <div className="flex items-center gap-4">
-                        <div className="h-7 w-20 bg-slate-200 rounded-full"></div>
-                        <div className="h-11 w-20 bg-slate-200 rounded-xl"></div>
+                        <div className="h-7 w-20 bg-base-300 rounded-full"></div>
+                        <div className="h-11 w-20 bg-base-300 rounded-xl"></div>
                       </div>
                     </div>
                   </div>
@@ -434,13 +434,13 @@ export function CardBombDemo() {
             
             {/* Empty State */}
             {!isLoadingGames && games.length === 0 && (
-              <div className="text-center py-16 px-8 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+              <div className="text-center py-16 px-8 bg-base-200 rounded-3xl border border-dashed border-base-300">
                 <div className="text-6xl mb-4">🎮</div>
-                <p className="text-slate-700 text-xl font-semibold mb-2">No games yet</p>
-                <p className="text-slate-500 mb-6">Create your first game to start playing!</p>
+                <p className="text-base-content text-xl font-semibold mb-2">No games yet</p>
+                <p className="text-base-content/60 mb-6">Create your first game to start playing!</p>
                 <button 
                   onClick={() => setActiveTab('create')} 
-                  className="px-8 py-3 bg-gradient-to-r from-violet-500 to-rose-500 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-violet-200 transition-all duration-200"
+                  className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-primary-content rounded-xl font-medium hover:shadow-lg hover:shadow-primary/30 transition-all duration-200"
                 >
                   Create Game
                 </button>
@@ -453,29 +453,29 @@ export function CardBombDemo() {
                 {games.map(game => (
                   <div 
                     key={game.gameId.toString()} 
-                    className="bg-white border border-slate-100 rounded-2xl p-5 flex justify-between items-center hover:border-violet-200 hover:shadow-md transition-all duration-200"
+                    className="bg-base-100 border border-base-200 rounded-2xl p-5 flex justify-between items-center hover:border-primary/40 hover:shadow-lg shadow-sm transition-all duration-200"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-violet-100 to-rose-100 rounded-xl flex items-center justify-center text-xl">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center text-xl">
                         🎯
                       </div>
                       <div>
-                        <p className="font-bold text-slate-800">Game #{game.gameId.toString()}</p>
-                        <p className="text-sm text-slate-500">by {game.creator.slice(0, 6)}...{game.creator.slice(-4)}</p>
-                        <p className="text-sm text-slate-400">{game.rewardPerSafeCell.toString()} pts/safe cell</p>
+                        <p className="font-bold text-base-content">Game #{game.gameId.toString()}</p>
+                        <p className="text-sm text-base-content/60">by {game.creator.slice(0, 6)}...{game.creator.slice(-4)}</p>
+                        <p className="text-sm text-base-content/40">{game.rewardPerSafeCell.toString()} pts/safe cell</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className={`px-3 py-1.5 rounded-full text-xs font-medium ${
                         game.active 
-                          ? 'bg-emerald-100 text-emerald-700' 
-                          : 'bg-slate-100 text-slate-500'
+                          ? 'bg-success/20 text-success' 
+                          : 'bg-base-200 text-base-content/50'
                       }`}>
                         {game.active ? '● Live' : 'Ended'}
                       </span>
                       <button 
                         onClick={() => handleSelectGame(game.gameId.toString())} 
-                        className="px-5 py-2.5 bg-gradient-to-r from-violet-500 to-violet-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-violet-200 transition-all duration-200"
+                        className="px-5 py-2.5 bg-gradient-to-r from-primary to-primary/80 text-primary-content rounded-xl font-medium hover:shadow-lg hover:shadow-primary/30 transition-all duration-200"
                       >
                         Play
                       </button>
@@ -491,14 +491,14 @@ export function CardBombDemo() {
         {activeTab === 'create' && (
           <div className="max-w-lg mx-auto">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">Create New Game</h3>
-              <p className="text-slate-500">Set up your bomb position and reward</p>
+              <h3 className="text-2xl font-bold text-base-content mb-2">Create New Game</h3>
+              <p className="text-base-content/60">Set up your bomb position and reward</p>
             </div>
             
             <div className="space-y-8">
               {/* Reward Input */}
-              <div className="bg-slate-50 rounded-2xl p-6">
-                <label className="block text-sm font-semibold text-slate-700 mb-3">
+              <div className="bg-base-200 rounded-2xl p-6">
+                <label className="block text-sm font-semibold text-base-content mb-3">
                   🏆 Reward per Safe Cell
                 </label>
                 <div className="relative">
@@ -506,17 +506,17 @@ export function CardBombDemo() {
                     type="number" 
                     value={reward} 
                     onChange={e => setReward(e.target.value)}
-                    className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl text-lg font-medium focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 transition-all" 
+                    className="w-full px-5 py-4 bg-base-100 border border-base-300 rounded-xl text-lg font-medium text-base-content focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" 
                     min="1" 
                     placeholder="10"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">pts</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base-content/40 font-medium">pts</span>
                 </div>
               </div>
               
               {/* Bomb Position */}
-              <div className="bg-slate-50 rounded-2xl p-6">
-                <label className="block text-sm font-semibold text-slate-700 mb-4">
+              <div className="bg-base-200 rounded-2xl p-6">
+                <label className="block text-sm font-semibold text-base-content mb-4">
                   💣 Place Your Bomb
                 </label>
                 <div className="flex justify-center">
@@ -535,8 +535,8 @@ export function CardBombDemo() {
                 disabled={isProcessing || bombPosition === null}
                 className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
                   isProcessing || bombPosition === null
-                    ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-violet-500 to-rose-500 text-white hover:shadow-xl hover:shadow-violet-200 hover:scale-[1.02] active:scale-[0.98]'
+                    ? 'bg-base-300 text-base-content/40 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-primary to-secondary text-primary-content hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]'
                 }`}
               >
                 {isProcessing ? (
@@ -559,24 +559,24 @@ export function CardBombDemo() {
             {/* Game Header */}
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-violet-100 to-rose-100 rounded-xl flex items-center justify-center text-xl">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center text-xl">
                   🎯
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-slate-800">Game #{currentGame.gameId.toString()}</h3>
-                  <p className="text-sm text-slate-500">by {currentGame.creator.slice(0, 6)}...{currentGame.creator.slice(-4)}</p>
+                  <h3 className="text-xl font-bold text-base-content">Game #{currentGame.gameId.toString()}</h3>
+                  <p className="text-sm text-base-content/60">by {currentGame.creator.slice(0, 6)}...{currentGame.creator.slice(-4)}</p>
                 </div>
               </div>
               <div className="flex gap-2">
                 <span className={`px-3 py-1.5 rounded-full text-xs font-medium ${
                   currentGame.active 
-                    ? 'bg-emerald-100 text-emerald-700' 
-                    : 'bg-slate-100 text-slate-500'
+                    ? 'bg-success/20 text-success' 
+                    : 'bg-base-200 text-base-content/50'
                 }`}>
                   {currentGame.active ? '● Live' : 'Ended'}
                 </span>
                 {isGameOver && (
-                  <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                  <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-error/20 text-error">
                     Game Over
                   </span>
                 )}
@@ -587,23 +587,23 @@ export function CardBombDemo() {
               {/* Left Panel - Info & Actions */}
               <div className="space-y-6">
                 {/* Stats Card */}
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl">
+                <div className="bg-gradient-to-br from-base-100 to-base-200 p-6 rounded-2xl shadow-inner border border-base-200">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-xl text-center">
-                      <p className="text-3xl font-bold text-violet-600">{currentGame.rewardPerSafeCell.toString()}</p>
-                      <p className="text-xs text-slate-500 mt-1">pts/safe cell</p>
+                    <div className="bg-base-100 p-4 rounded-xl text-center shadow-sm border border-base-200">
+                      <p className="text-3xl font-bold text-primary">{currentGame.rewardPerSafeCell.toString()}</p>
+                      <p className="text-xs text-base-content/50 mt-1">pts/safe cell</p>
                     </div>
-                    <div className="bg-white p-4 rounded-xl text-center">
-                      <p className="text-3xl font-bold text-emerald-600">{safeCount}<span className="text-slate-300">/8</span></p>
-                      <p className="text-xs text-slate-500 mt-1">safe found</p>
+                    <div className="bg-base-100 p-4 rounded-xl text-center shadow-sm border border-base-200">
+                      <p className="text-3xl font-bold text-success">{safeCount}<span className="text-base-content/30">/8</span></p>
+                      <p className="text-xs text-base-content/50 mt-1">safe found</p>
                     </div>
                   </div>
                   
                   {/* Progress Bar */}
                   <div className="mt-4">
-                    <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-3 bg-base-300 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-success/80 to-success transition-all duration-500"
                         style={{ width: `${(safeCount / 8) * 100}%` }}
                       />
                     </div>
@@ -618,8 +618,8 @@ export function CardBombDemo() {
                       disabled={isProcessing || selectedCell === null}
                       className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
                         isProcessing || selectedCell === null
-                          ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                          : 'bg-gradient-to-r from-violet-500 to-violet-600 text-white hover:shadow-lg hover:shadow-violet-200'
+                          ? 'bg-base-300 text-base-content/40 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-primary to-primary/80 text-primary-content hover:shadow-lg hover:shadow-primary/30'
                       }`}
                     >
                       {isProcessing ? (
@@ -638,7 +638,7 @@ export function CardBombDemo() {
                     <button 
                       onClick={handleMakePublic} 
                       disabled={isProcessing}
-                      className="w-full py-3 rounded-xl font-medium bg-amber-100 text-amber-700 hover:bg-amber-200 transition-all disabled:opacity-50"
+                      className="w-full py-3 rounded-xl font-medium bg-warning/20 text-warning hover:bg-warning/30 transition-all disabled:opacity-50"
                     >
                       🛑 End Game
                     </button>
@@ -648,7 +648,7 @@ export function CardBombDemo() {
                     <button 
                       onClick={handleRevealBomb} 
                       disabled={isProcessing}
-                      className="w-full py-4 rounded-2xl font-bold bg-gradient-to-r from-rose-500 to-red-500 text-white hover:shadow-lg hover:shadow-rose-200 transition-all disabled:opacity-50"
+                      className="w-full py-4 rounded-2xl font-bold bg-gradient-to-r from-error to-error/80 text-error-content hover:shadow-lg hover:shadow-error/30 transition-all disabled:opacity-50"
                     >
                       💣 Reveal Bomb
                     </button>
@@ -662,20 +662,20 @@ export function CardBombDemo() {
                   
                   return (
                     <div className={`p-6 rounded-2xl text-center ${
-                      hitBomb ? 'bg-gradient-to-br from-red-50 to-red-100 border border-red-200' :
-                      clearedAll ? 'bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200' :
-                      'bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200'
+                      hitBomb ? 'bg-gradient-to-br from-error/10 to-error/20 border border-error/30' :
+                      clearedAll ? 'bg-gradient-to-br from-success/10 to-success/20 border border-success/30' :
+                      'bg-gradient-to-br from-warning/10 to-warning/20 border border-warning/30'
                     }`}>
                       <div className="text-5xl mb-3">
                         {hitBomb ? '💥' : clearedAll ? '🎉' : '🛡️'}
                       </div>
                       <p className={`font-bold text-2xl ${
-                        hitBomb ? 'text-red-700' : clearedAll ? 'text-emerald-700' : 'text-amber-700'
+                        hitBomb ? 'text-error' : clearedAll ? 'text-success' : 'text-warning'
                       }`}>
                         {hitBomb ? 'GAME OVER' : clearedAll ? 'YOU WIN!' : 'SURVIVED'}
                       </p>
                       <p className={`text-sm mt-1 ${
-                        hitBomb ? 'text-red-600' : clearedAll ? 'text-emerald-600' : 'text-amber-600'
+                        hitBomb ? 'text-error/80' : clearedAll ? 'text-success/80' : 'text-warning/80'
                       }`}>
                         {safeCount} safe cells found
                       </p>
@@ -686,7 +686,7 @@ export function CardBombDemo() {
 
               {/* Right Panel - Game Grid */}
               <div className="flex flex-col items-center justify-center">
-                <p className="text-sm text-slate-500 mb-6 text-center">
+                <p className="text-sm text-base-content/60 mb-6 text-center">
                   {isGameOver 
                     ? 'Game finished! Check the results.' 
                     : 'Tap a cell to select, then click Guess'}
@@ -701,17 +701,17 @@ export function CardBombDemo() {
                 />
                 
                 {/* Legend */}
-                <div className="flex gap-4 mt-6 text-xs text-slate-500">
+                <div className="flex gap-4 mt-6 text-xs text-base-content/60">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-4 h-4 rounded bg-gradient-to-br from-emerald-400 to-emerald-600"></span>
+                    <span className="w-4 h-4 rounded bg-gradient-to-br from-success/80 to-success"></span>
                     <span>Safe</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-4 h-4 rounded bg-gradient-to-br from-red-400 to-red-600"></span>
+                    <span className="w-4 h-4 rounded bg-gradient-to-br from-error/80 to-error"></span>
                     <span>Bomb</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-4 h-4 rounded bg-gradient-to-br from-violet-400 to-violet-600"></span>
+                    <span className="w-4 h-4 rounded bg-gradient-to-br from-primary/80 to-primary"></span>
                     <span>Selected</span>
                   </div>
                 </div>
@@ -722,13 +722,13 @@ export function CardBombDemo() {
 
         {/* No Game Selected */}
         {activeTab === 'play' && !currentGame && (
-          <div className="text-center py-16 px-8 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+          <div className="text-center py-16 px-8 bg-base-200 rounded-3xl border border-dashed border-base-300">
             <div className="text-6xl mb-4">🎯</div>
-            <p className="text-slate-700 text-xl font-semibold mb-2">No game selected</p>
-            <p className="text-slate-500 mb-6">Choose a game from the list to start playing</p>
+            <p className="text-base-content text-xl font-semibold mb-2">No game selected</p>
+            <p className="text-base-content/60 mb-6">Choose a game from the list to start playing</p>
             <button 
               onClick={() => setActiveTab('list')} 
-              className="px-8 py-3 bg-gradient-to-r from-violet-500 to-rose-500 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-violet-200 transition-all duration-200"
+              className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-primary-content rounded-xl font-medium hover:shadow-lg hover:shadow-primary/30 transition-all duration-200"
             >
               Browse Games
             </button>
