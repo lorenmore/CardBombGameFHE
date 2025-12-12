@@ -18,12 +18,13 @@ export function CardGrid({
   selectedIndices, 
   onCellClick, 
   disabled, 
-  maxSelections = 1, 
+  maxSelections: _maxSelections = 1, 
   revealedBombs,
   guessedCells,
   isGuessMode = false,
   title 
 }: CardGridProps) {
+  void _maxSelections;
   const handleClick = (index: number) => {
     if (disabled) return;
     if (guessedCells?.[index]) return; // Can't click already guessed cells
