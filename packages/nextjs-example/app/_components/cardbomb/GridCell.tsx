@@ -30,37 +30,38 @@ export function GridCell({ index, selected, onClick, disabled, revealed, isBomb,
   
   if (revealed && isBomb) {
     // Bomb exploded - RED ALERT
-    bgStyles = "bg-red-900/80";
-    borderStyles = "border border-red-500";
+    bgStyles = "bg-error/30";
+    borderStyles = "border border-error";
     glowEffect = "shadow-[0_0_20px_rgba(239,68,68,0.6)] animate-pulse";
     content = <span className="text-2xl drop-shadow-[0_0_8px_rgba(239,68,68,1)]">💣</span>;
   } else if (isGuessed) {
     // Safe cell found - NEON GREEN
-    bgStyles = "bg-emerald-900/60";
-    borderStyles = "border border-emerald-400";
+    bgStyles = "bg-success/20";
+    borderStyles = "border border-success";
     glowEffect = "shadow-[0_0_10px_rgba(52,211,153,0.4)]";
-    content = <span className="text-xl text-emerald-400 font-bold">✓</span>;
+    content = <span className="text-xl text-success font-bold">✓</span>;
   } else if (selected) {
-    // Currently selected - CYAN/PURPLE
+    // Currently selected - PRIMARY/SECONDARY
     if (isGuess) {
-      // Guess mode - PURPLE
-      bgStyles = "bg-purple-900/60";
-      borderStyles = "border border-purple-500";
+      // Guess mode - SECONDARY
+      bgStyles = "bg-secondary/20";
+      borderStyles = "border border-secondary";
       glowEffect = "shadow-[0_0_15px_rgba(168,85,247,0.5)] scale-105 z-10";
-      content = <span className="text-2xl text-purple-400 font-bold animate-pulse">?</span>;
+      content = <span className="text-2xl text-secondary font-bold animate-pulse">?</span>;
     } else {
       // Bomb placement mode
-      bgStyles = "bg-cyan-900/60";
-      borderStyles = "border border-cyan-400";
+      bgStyles = "bg-primary/20";
+      borderStyles = "border border-primary";
       glowEffect = "shadow-[0_0_15px_rgba(34,211,238,0.5)] scale-105 z-10";
       content = <span className="text-2xl">💣</span>;
     }
   } else {
-    // Default unselected - DARK METALLIC
-    bgStyles = "bg-slate-800/40 hover:bg-slate-700/60";
-    borderStyles = "border border-slate-700 hover:border-cyan-500/50";
+    // Default unselected
+    bgStyles = "bg-base-200 hover:bg-base-300/80";
+    borderStyles = "border-2 border-base-300 hover:border-primary/60";
+    glowEffect = "shadow-sm hover:shadow-md";
     content = (
-      <span className="text-sm font-mono text-slate-600 group-hover:text-cyan-400 transition-colors">
+      <span className="text-sm font-mono text-base-content/50 group-hover:text-primary transition-colors">
         {String(index + 1).padStart(2, '0')}
       </span>
     );
@@ -88,7 +89,7 @@ export function GridCell({ index, selected, onClick, disabled, revealed, isBomb,
       
       {/* Decorative Corner (only for unselected/unrevealed) */}
       {!selected && !revealed && !isGuessed && (
-        <div className="absolute bottom-0 right-0 w-3 h-3 bg-slate-600/30 group-hover:bg-cyan-400/50 transition-colors" 
+        <div className="absolute bottom-0 right-0 w-3 h-3 bg-base-content/10 group-hover:bg-primary/50 transition-colors" 
              style={{ clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }} />
       )}
     </button>
