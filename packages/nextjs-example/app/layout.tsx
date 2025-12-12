@@ -56,7 +56,7 @@ const DappWrapper = ({ children }: { children: React.ReactNode }) => {
         />
       </head>
       <body>
-        <ThemeProvider enableSystem>
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
           <DappWrapperWithProviders>{children}</DappWrapperWithProviders>
         </ThemeProvider>
       </body>
