@@ -20,7 +20,35 @@
 
 @plugin "daisyui" {
   themes:
-    dark --default;
+    light --default,
+    dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+
+  --color-primary: #7c3aed; /* Violet */
+  --color-primary-content: #ffffff;
+  --color-secondary: #db2777; /* Pink */
+  --color-secondary-content: #ffffff;
+  --color-accent: #059669; /* Emerald */
+  --color-accent-content: #ffffff;
+  --color-neutral: #1f2937;
+  --color-neutral-content: #ffffff;
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #111827;
+  --color-info: #2563eb;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+
+  --radius-field: 0.75rem;
+  --radius-box: 0.75rem;
+  
+  --tt-tailw: 6px;
+  --tt-bg: var(--color-primary);
 }
 
 @plugin "daisyui/theme" {
@@ -65,14 +93,22 @@
 
   body {
     min-height: 100vh;
-    background-color: #050505;
+    background-color: var(--color-base-100);
+    font-family: "Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+      Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  [data-theme="dark"] body {
     background-image: 
       linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
     background-size: 30px 30px;
-    font-family: "Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI,
-      Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  [data-theme="light"] body {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #fdf4ff 100%);
   }
 
   h1,
